@@ -40,9 +40,16 @@ class AbsensiSiswaController extends Controller
         return view('admin.absensi.dashboard', compact('absensis'));
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $filter = $request->get('filter');
         $absensis = Absensi::with('absensiSiswa')->get();  // Ambil semua data absensi
+
+        if ($filter) {
+            $absensis = $absensis->where('judul', 'like', '%' . $filter . '%');
+        }
+
+
         return view('admin.absensi.absensisiswa', compact('absensis'));
     }
 

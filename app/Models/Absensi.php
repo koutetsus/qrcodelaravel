@@ -17,6 +17,6 @@ class Absensi extends Model
     // }
     public function absensiSiswa()
     {
-        return $this->hasMany(AbsensiSiswa::class);
+        return $this->hasMany(AbsensiSiswa::class, 'absensi_id') ;
     }
 }

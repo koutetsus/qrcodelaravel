@@ -17,6 +17,16 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->timestamps();
         });
+
+
+        Schema::create('absensi_siswa', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('absensi_id')->references('id')->on('absensis')->onDelete('cascade');
+            $table->string('nama');
+            $table->string('kelas');
+            $table->enum('status', ['Hadir', 'Tidak Hadir']);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -25,5 +35,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('absensis');
+        Schema::dropIfExists('absensi_siswa');
     }
 };
