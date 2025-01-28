@@ -14,22 +14,23 @@
         </script>
     </head>
     <body class="bg-gray-100 dark:bg-gray-900 p-4 transition duration-300">
-        <!-- Dark Mode Toggle -->
-
         <!-- Container -->
         <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <!-- Input Filter -->
+            <!-- Dropdown Filter -->
             <div class="mb-6">
                 <label for="filter" class="block text-gray-700 dark:text-gray-300 font-medium">Filter Judul Absensi</label>
-                <input type="text" id="filter"
-                       class="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded px-2 py-1 w-full"
-                       placeholder="Masukkan judul absensi...">
+                <select id="filter" class="border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded px-2 py-1 w-full">
+                    <option value="">Pilih Judul Absensi</option>
+                    @foreach ($absensis as $absensi)
+                        <option value="{{ $absensi->judul }}">{{ $absensi->judul }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <!-- Data Absensi -->
             <div id="absensi-list">
                 @foreach ($absensis as $absensi)
-                <div class="absensi-item mb-8">
+                <div class="absensi-item mb-8" data-judul="{{ $absensi->judul }}">
                     <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">{{ $absensi->judul }}</h1>
 
                     <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">Daftar Siswa</h2>
@@ -60,24 +61,18 @@
 
         <!-- Script untuk Filter -->
         <script>
-            document.getElementById('filter').addEventListener('input', function() {
-                const filterText = this.value.toLowerCase();
+            document.getElementById('filter').addEventListener('change', function() {
+                const filterValue = this.value;
                 const absensiItems = document.querySelectorAll('.absensi-item');
 
                 absensiItems.forEach(item => {
-                    const title = item.querySelector('h1').textContent.toLowerCase();
-                    if (title.includes(filterText)) {
+                    const title = item.getAttribute('data-judul');
+                    if (!filterValue || title === filterValue) {
                         item.style.display = '';
                     } else {
                         item.style.display = 'none';
                     }
                 });
-            });
-
-            // Toggle Dark Mode
-            const darkModeToggle = document.getElementById('toggle-dark-mode');
-            darkModeToggle.addEventListener('click', () => {
-                document.documentElement.classList.toggle('dark');
             });
         </script>
     </body>

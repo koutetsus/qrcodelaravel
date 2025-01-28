@@ -37,9 +37,9 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <button id="darkModeToggle" class="py-2 px-4 bg-blue-500 text-white rounded">
+                        {{-- <button id="darkModeToggle" class="py-2 px-4 bg-blue-500 text-white rounded">
                             Aktifkan Dark Mode
-                        </button>
+                        </button> --}}
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -105,7 +105,7 @@
     </div>
 </nav>
 
-<script>
+{{-- <script>
     const darkModeToggle = document.getElementById('darkModeToggle');
     const htmlElement = document.documentElement;
 
@@ -126,4 +126,4 @@
             darkModeToggle.textContent = 'Matikan Dark Mode';
         }
     });
-</script>
+</script> --}}
